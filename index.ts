@@ -50,6 +50,7 @@ async function savePdfs(orders: TindieOrder[]) {
 
   for (const order of orders) {
     const page = await context.newPage()
+
     await page.goto(`https://www.tindie.com/orders/print/${order.number}/`)
     await page.pdf({
       path: `slips/${order.number}.pdf`,
@@ -61,6 +62,8 @@ async function savePdfs(orders: TindieOrder[]) {
       },
       scale: 0.9
     })
+
+    await page.close()
   }
 
   await browser.close()
